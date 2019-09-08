@@ -2,6 +2,11 @@ package com.mgvr.kudos.user.api.dao;
 
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +26,17 @@ public class UserDao {
 	
 
 	public List<User> getAllUsers() {
-		return getSession().createCriteria(User.class).list();
+		CriteriaBuilder cb = getSession().getCriteriaBuilder();
+		CriteriaQuery<User> cq = cb.createQuery(User.class);
+		Root<User> rootEntry = cq.from(User.class);
+		CriteriaQuery<User> all = cq.select(rootEntry);
+		TypedQuery<User> allQuery = getSession().createQuery(all);
+		return allQuery.getResultList();	
+	}
+	
+	public User getUser(int id) {
+		User user = (User) getSession().get(User.class, id);
+		return user;
 	}
 	
 	public void updateUser(User user) {

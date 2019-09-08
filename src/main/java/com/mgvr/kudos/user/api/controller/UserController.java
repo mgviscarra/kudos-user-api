@@ -32,6 +32,11 @@ public class UserController {
 		return dao.getAllUsers();
 	}
 	
+	@GetMapping("/user/{id}")
+	public User getUser(@PathVariable String id) {
+		return dao.getUser(Integer.parseInt(id));
+	}
+	
 	@PutMapping("/user/{id}")
 	public String updateUser(@PathVariable String id, @RequestBody User user) {
 		user.setId(Integer.parseInt(id));
