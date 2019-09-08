@@ -19,9 +19,17 @@ public class UserDao {
 		getSession().save(user);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<User> getUser() {
+
+	public List<User> getAllUsers() {
 		return getSession().createCriteria(User.class).list();
+	}
+	
+	public void updateUser(User user) {
+		getSession().update(user);
+	}
+	
+	public void deleteUser(User user) {
+		getSession().delete(user);
 	}
 	
 	private Session getSession() {

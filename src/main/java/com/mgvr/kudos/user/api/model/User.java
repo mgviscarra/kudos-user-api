@@ -15,6 +15,10 @@ public class User {
 	public String getNickName() {
 		return nickName;
 	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
