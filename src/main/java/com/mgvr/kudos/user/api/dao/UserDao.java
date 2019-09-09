@@ -12,6 +12,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.mgvr.kudos.user.api.messaging.Sender;
 import com.mgvr.kudos.user.api.model.User;
 
 @Repository
@@ -19,9 +21,12 @@ import com.mgvr.kudos.user.api.model.User;
 public class UserDao {
 	@Autowired
 	private SessionFactory factory;
+	@Autowired
+	private Sender sender;
 
 	public void saveUser(User user) {
 		getSession().save(user);
+		sender.sendMessage("Holaaaa");
 	}
 	
 
