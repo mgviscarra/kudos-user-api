@@ -14,6 +14,6 @@ public class Sender {
     private RabbitTemplate rabbitTemplate;
     public void sendMessage(String message) {
     	 System.out.println("[Application] Enviando el mensaje \"" + message + "\"...");
-         rabbitTemplate.convertAndSend(RabbitMqConfig.EXCHANGE_NAME, RabbitMqConfig.ROUTING_KEY, message);
+         //rabbitTemplate.convertAndSend(RabbitMqConfig.EXCHANGE_NAME, RabbitMqConfig., message);
     }
 }

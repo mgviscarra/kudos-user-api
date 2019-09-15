@@ -7,8 +7,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,12 +24,10 @@ import com.mgvr.kudos.user.api.model.User;
 public class UserDao {
 	@Autowired
 	private SessionFactory factory;
-	@Autowired
-	private Sender sender;
-
+	
 	public void saveUser(User user) {
-		getSession().save(user);
-		sender.sendMessage("Holaaaa");
+		user.setId((int)getSession().save(user));
+		getSession().update(user);
 	}
 	
 
@@ -41,6 +42,22 @@ public class UserDao {
 	
 	public User getUser(int id) {
 		User user = (User) getSession().get(User.class, id);
+		return user;
+	}
+
+	public User getUserByRealName(String realName){
+		CriteriaBuilder builder = getSession().getCriteriaBuilder();
+		CriteriaQuery<User> criteria = builder.createQuery(User.class);
+		Root<User> root = criteria.from(User.class);
+		criteria.select(root).where(builder.equal(root.get("realName"),realName));
+		Query<User> userQuery = getSession().createQuery(criteria);
+		User user;
+		try{
+			 user = userQuery.getSingleResult();
+		}
+		catch (Exception e){
+			return null;
+		}
 		return user;
 	}
 	
