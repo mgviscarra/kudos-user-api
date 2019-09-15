@@ -7,16 +7,14 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.hibernate.Criteria;
+import com.mgvr.kudos.user.api.com.mgvr.kudos.user.api.constants.DbFields;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mgvr.kudos.user.api.messaging.Sender;
 import com.mgvr.kudos.user.api.model.User;
 
 @Repository
@@ -49,7 +47,7 @@ public class UserDao {
 		CriteriaBuilder builder = getSession().getCriteriaBuilder();
 		CriteriaQuery<User> criteria = builder.createQuery(User.class);
 		Root<User> root = criteria.from(User.class);
-		criteria.select(root).where(builder.equal(root.get("realName"),realName));
+		criteria.select(root).where(builder.equal(root.get(DbFields.REAL_NAME),realName));
 		Query<User> userQuery = getSession().createQuery(criteria);
 		User user;
 		try{

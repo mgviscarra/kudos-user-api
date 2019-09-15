@@ -4,8 +4,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.mgvr.kudos.user.api.config.RabbitMqConfig;
-
 @Component
 public class Sender {
 	//private static final String MESSAGE = "Hello world!";

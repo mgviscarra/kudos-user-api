@@ -4,10 +4,7 @@ package com.mgvr.kudos.user.api.config;
 import com.mgvr.kudos.user.api.com.mgvr.kudos.user.api.constants.RabbitmqExchangeName;
 import com.mgvr.kudos.user.api.com.mgvr.kudos.user.api.constants.RabbitmqQueueNames;
 import com.mgvr.kudos.user.api.com.mgvr.kudos.user.api.constants.RabbitmqRoutingKeys;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -33,8 +30,8 @@ public class RabbitMqConfig {
     }
  
     @Bean
-    TopicExchange exchange() {
-        return new TopicExchange(EXCHANGE_NAME);
+    DirectExchange exchange() {
+        return new DirectExchange(EXCHANGE_NAME);
     }
 
     @Bean
@@ -43,12 +40,12 @@ public class RabbitMqConfig {
     }
  
     @Bean
-    Binding bindingApi(Queue userApiQueue, TopicExchange exchange) {
+    Binding bindingApi(Queue userApiQueue, DirectExchange exchange) {
         return BindingBuilder.bind(userApiQueue).to(exchange).with(KUDO_RPC_USER_API_ROUTING_KEY);
     }
 
     @Bean
-    Binding bindingUserRequest(Queue userRequestQueue, TopicExchange exchange) {
+    Binding bindingUserRequest(Queue userRequestQueue, DirectExchange exchange) {
         return BindingBuilder.bind(userRequestQueue).to(exchange).with(KUDO_RPC_USER_REQUEST_ROUTING_KEY);
     }
 
