@@ -71,8 +71,10 @@ public class UserController {
         String responseKudosUser=  (String)rabbitTemplate.convertSendAndReceive
                 (RabbitmqExchangeName.EXCHANGE_NAME, RabbitmqRoutingKeys.KUDO_RPC_GET_KUDO_FOR_USER_REQUEST, user);
         ObjectMapper mapper = new ObjectMapper();
-        List<Kudo> kudoList = mapper.readValue(responseKudosUser, mapper.getTypeFactory().constructCollectionType(List.class, Kudo.class));
-        user.setKudos(kudoList);
+        if(responseKudosUser!=null){
+            List<Kudo> kudoList = mapper.readValue(responseKudosUser, mapper.getTypeFactory().constructCollectionType(List.class, Kudo.class));
+            user.setKudos(kudoList);
+        }
         return new ResponseEntity<>(user, HttpStatus.OK);
 
     }
