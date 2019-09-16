@@ -7,7 +7,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import com.mgvr.kudos.user.api.com.mgvr.kudos.user.api.constants.DbFields;
+import com.mgvr.kudos.user.api.constants.DbFields;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -35,7 +35,7 @@ public class UserDao {
 		Root<User> rootEntry = cq.from(User.class);
 		CriteriaQuery<User> all = cq.select(rootEntry);
 		TypedQuery<User> allQuery = getSession().createQuery(all);
-		return allQuery.getResultList();	
+		return allQuery.getResultList();
 	}
 	
 	public User getUser(int id) {
@@ -52,6 +52,22 @@ public class UserDao {
 		User user;
 		try{
 			 user = userQuery.getSingleResult();
+		}
+		catch (Exception e){
+			return null;
+		}
+		return user;
+	}
+
+	public User getUserByNickName(String nickName){
+		CriteriaBuilder builder = getSession().getCriteriaBuilder();
+		CriteriaQuery<User> criteria = builder.createQuery(User.class);
+		Root<User> root = criteria.from(User.class);
+		criteria.select(root).where(builder.equal(root.get(DbFields.NICK_NAME),nickName));
+		Query<User> userQuery = getSession().createQuery(criteria);
+		User user;
+		try{
+			user = userQuery.getSingleResult();
 		}
 		catch (Exception e){
 			return null;

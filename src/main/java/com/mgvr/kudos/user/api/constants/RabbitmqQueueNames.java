@@ -1,4 +1,4 @@
-package com.mgvr.kudos.user.api.com.mgvr.kudos.user.api.constants;
+package com.mgvr.kudos.user.api.constants;
 
 public final class RabbitmqQueueNames {
     public static final String KUDO_RPC_USER_API="kudo.rpc.user.api";

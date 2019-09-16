@@ -1,8 +1,13 @@
 package com.mgvr.kudos.user.api.model;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+import java.util.List;
 
 @Entity
 public class User {
@@ -11,7 +16,19 @@ public class User {
 	private int id;
 	private String nickName;
 	private String realName;
+	@JsonIgnore
 	private String email;
+	@Transient
+	private List<Kudo> kudos;
+
+	public List<Kudo> getKudos() {
+		return kudos;
+	}
+
+	public void setKudos(List<Kudo> kudos) {
+		this.kudos = kudos;
+	}
+
 	public String getNickName() {
 		return nickName;
 	}

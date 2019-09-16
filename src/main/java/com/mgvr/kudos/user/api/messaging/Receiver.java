@@ -2,7 +2,7 @@ package com.mgvr.kudos.user.api.messaging;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mgvr.kudos.user.api.com.mgvr.kudos.user.api.constants.RabbitmqQueueNames;
+import com.mgvr.kudos.user.api.constants.RabbitmqQueueNames;
 import com.mgvr.kudos.user.api.model.User;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

@@ -1,9 +1,9 @@
 package com.mgvr.kudos.user.api.config;
 
 
-import com.mgvr.kudos.user.api.com.mgvr.kudos.user.api.constants.RabbitmqExchangeName;
-import com.mgvr.kudos.user.api.com.mgvr.kudos.user.api.constants.RabbitmqQueueNames;
-import com.mgvr.kudos.user.api.com.mgvr.kudos.user.api.constants.RabbitmqRoutingKeys;
+import com.mgvr.kudos.user.api.constants.RabbitmqExchangeName;
+import com.mgvr.kudos.user.api.constants.RabbitmqQueueNames;
+import com.mgvr.kudos.user.api.constants.RabbitmqRoutingKeys;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
