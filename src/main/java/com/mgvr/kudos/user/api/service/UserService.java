@@ -6,6 +6,7 @@ import com.mgvr.kudos.user.api.constants.DbFields;
 import com.mgvr.kudos.user.api.constants.RabbitmqExchangeName;
 import com.mgvr.kudos.user.api.constants.RabbitmqRoutingKeys;
 import com.mgvr.kudos.user.api.dao.UserDao;
+import com.mgvr.kudos.user.api.messaging.Sender;
 import com.mgvr.kudos.user.api.model.Kudo;
 import com.mgvr.kudos.user.api.model.User;
 import com.monitorjbl.json.JsonResult;
@@ -13,13 +14,10 @@ import com.monitorjbl.json.JsonView;
 import com.monitorjbl.json.Match;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class UserService {
@@ -28,6 +26,9 @@ public class UserService {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
+
+    @Autowired
+    private Sender sender;
 
     public void addUser(User user){
         dao.saveUser(user);
@@ -68,7 +69,11 @@ public class UserService {
             List<Kudo> kudoList = mapper.readValue(responseKudosUser, mapper.getTypeFactory().constructCollectionType(List.class, Kudo.class));
             user.setKudos(kudoList);
         }
-        return  user;
+        JsonResult json = JsonResult.instance();
+        return json.use(JsonView.with(user)
+                .onClass(User.class, Match.match()
+                        .exclude(DbFields.NRO_KUDOS)
+                )).returnValue();
     }
 
     public void updateUser(String id, User user){
