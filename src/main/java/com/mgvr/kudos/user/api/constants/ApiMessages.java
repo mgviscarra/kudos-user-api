@@ -2,6 +2,7 @@ package com.mgvr.kudos.user.api.constants;
 
 public class ApiMessages {
     public static final String USER_CREATED="USER CREATED!";
+    public static final String USERS_DONT_EXIST="SOME OF THE USERS PROVIDED ARE NOT REGISTERED";
     public static final String USER_UPDATED="USER UPDATED!";
     public static final String USER_DELETED="USER DELETED!";
     public static final String USER_NOT_DELETED="USER COULD NOT BE DELETED!";
